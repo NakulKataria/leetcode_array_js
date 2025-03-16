@@ -1,0 +1,45 @@
+You are given an integer array ranks representing the ranks of some mechanics. ranksi is the rank of the ith mechanic. A mechanic with a rank r can repair n cars in r * n2 minutes.
+
+You are also given an integer cars representing the total number of cars waiting in the garage to be repaired.
+
+Return the minimum time taken to repair all the cars.
+
+Note: All the mechanics can repair the cars simultaneously.
+
+solution- binary search problem are always very annoying at start but after some time we get to an approach that makes us laugh
+i used this code leetcode to further optimize my code 
+const repairCars = (ranks, cars) => {
+//   ranks.sort((a, b) => a - b);
+  let left = 1;
+  let right = ranks[0] * Math.pow(cars, 2);
+
+  const isPossible = (time) => {
+    let total = 0;
+    for (let i = 0; i < ranks.length; i++) {
+      const c = Math.floor(Math.sqrt(time / ranks[i]));
+      total += c;
+
+      if (total >= cars) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
+  let ans = right;
+
+  while (left <= right) {
+    const mid = Math.floor((left + right) / 2);
+    if (isPossible(mid)) {
+      ans = mid;
+      right = mid - 1;
+    } else {
+      left = mid + 1;
+    }
+  }
+
+  return ans;
+};
+
+basically it does not iterate further in array as the count exceeds no of cars

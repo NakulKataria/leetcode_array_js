@@ -7,7 +7,7 @@ var findMedianSortedArrays = function(nums1, nums2) {
     let x = nums1.length;
     let y = nums2.length;
     let low = 0, high = x;
-
+    
     while (low <= high) {
         //partition set kre (+1 dono odd even case handle kr lega)
         let partitionX = Math.floor((low + high) / 2);
